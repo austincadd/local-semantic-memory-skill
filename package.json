@@ -1,0 +1,18 @@
+{
+  "name": "local-semantic-memory-skill",
+  "version": "0.2.0",
+  "private": false,
+  "description": "Portable local semantic memory engine + OpenClaw-style skill package for local indexing and recall workflows.",
+  "bin": {
+    "local-semantic-memory": "tools/memory-local.js"
+  },
+  "license": "MIT",
+  "scripts": {
+    "validate": "bash ./skill/scripts/validate-skill.sh",
+    "install:skill": "bash ./skill/scripts/install-skill.sh ~/.openclaw/workspace/skills",
+    "install:stack": "bash ./skill/scripts/install-stack.sh ~/.openclaw/workspace"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

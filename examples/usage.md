@@ -1,10 +1,25 @@
-# Usage example
+# Usage examples
 
-Once installed, the skill should be available as `local-semantic-memory`.
+## Index a workspace
 
-Typical use cases:
+```bash
+MEMORY_LOCAL_WORKSPACE=~/.openclaw/workspace \
+MEMORY_LOCAL_PROFILE=core \
+MEMORY_LOCAL_EMBED_MODEL=all-minilm \
+node tools/memory-local.js index --full
+```
 
-- validating local semantic recall after editing the memory indexer
-- falling back to local memory when remote embeddings quota is exhausted
-- testing `smoke`, `core`, `expanded`, and `full-history` profiles
-- auditing retrieval quality on targeted operational queries
+## Inspect stats
+
+```bash
+MEMORY_LOCAL_WORKSPACE=~/.openclaw/workspace node tools/memory-local.js stats
+```
+
+## Run a targeted retrieval query
+
+```bash
+MEMORY_LOCAL_WORKSPACE=~/.openclaw/workspace \
+MEMORY_LOCAL_PROFILE=core \
+MEMORY_LOCAL_EMBED_MODEL=all-minilm \
+node tools/memory-local.js search "Telegram invalid token and OpenClaw OAuth" --k 6 --json
+```

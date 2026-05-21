@@ -1,29 +1,30 @@
 # local-semantic-memory-skill
 
-A reusable OpenClaw/AgentSkill-style package for operating a **local semantic memory** workflow in workspaces that support on-device or self-hosted embedding-backed recall.
+A portable **local semantic memory stack** for OpenClaw-style workspaces.
 
-This repo packages the **skill** and installation helpers, not the full memory engine itself. It is intended for teams or solo operators who already have a local indexing/search implementation and want a documented, reusable skill that teaches an agent how to validate, debug, and trust it.
+This repo now packages both:
 
-## What this solves
+1. the **skill layer** that teaches an agent how to operate local semantic recall
+2. the **runtime layer** needed to index and search markdown memory locally
 
-When remote embedding-backed recall is quota-limited, offline, expensive, or privacy-sensitive, agents need a fallback path that is:
-
-- local-first
-- disciplined about validation
-- explicit about profile scope
-- honest about retrieval quality
-- installable by someone outside the original workspace
-
-That is what this repo provides.
+That makes it installable by someone outside the original workspace instead of being tied to Austin’s machine paths.
 
 ## What’s included
 
-- `skill/SKILL.md` — concise skill entrypoint
-- `skill/REFERENCE.md` — deeper operating guidance
-- `skill/EXAMPLES.md` — concrete usage patterns
-- `skill/scripts/install-skill.sh` — copies the skill into a target skills directory
-- `skill/scripts/validate-skill.sh` — validates required packaged files
-- `examples/` — installation and usage examples
+- `skill/` — installable OpenClaw/AgentSkill-style files
+- `tools/memory-local.js` — local index/search engine entrypoint
+- `tools/lib/hybrid-retrieval.js` — BM25 + vector hybrid retrieval helper
+- `config/profiles.json` — default indexing profiles
+- install scripts for skill-only or full stack installation
+
+## Features
+
+- local markdown indexing with profile-based scope control
+- Ollama embedding integration
+- hybrid retrieval with BM25 + vector fusion
+- automatic chunk splitting retry for context-overflow embedding failures
+- reusable skill packaging for agent environments
+- workspace installer for skill + tool + config layout
 
 ## Repository layout
 
@@ -33,99 +34,99 @@ local-semantic-memory-skill/
 ├── LICENSE
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
+├── package.json
 ├── .gitignore
+├── config/
+│   └── profiles.json
+├── tools/
+│   ├── memory-local.js
+│   └── lib/
+│       └── hybrid-retrieval.js
 ├── skill/
 │   ├── SKILL.md
 │   ├── REFERENCE.md
 │   ├── EXAMPLES.md
 │   └── scripts/
 │       ├── install-skill.sh
+│       ├── install-stack.sh
 │       └── validate-skill.sh
 ├── examples/
 │   ├── install.md
 │   └── usage.md
 └── .github/
     ├── ISSUE_TEMPLATE/
-    │   ├── bug_report.md
-    │   └── feature_request.md
     └── pull_request_template.md
 ```
 
 ## Requirements
 
-This skill assumes the target workspace already has a local memory implementation, typically including:
+- Node.js 18+
+- a target workspace containing markdown memory files
+- a running Ollama instance for embeddings
+- an installed embedding model such as `all-minilm` or `nomic-embed-text`
 
+## Install options
+
+### Option 1 — install full stack into a workspace
+
+```bash
+./skill/scripts/install-stack.sh ~/.openclaw/workspace
+```
+
+That installs:
+
+- `skills/local-semantic-memory/`
 - `tools/memory-local.js`
+- `tools/lib/hybrid-retrieval.js`
 - `.memory-local/profiles.json`
-- a local embedding runtime/model path such as Ollama
 
-If your workspace uses different paths or tools, adapt `skill/SKILL.md` and `skill/REFERENCE.md` before installing.
-
-## Install
-
-### Option 1 — use the helper script
+### Option 2 — install only the skill layer
 
 ```bash
 ./skill/scripts/install-skill.sh ~/.openclaw/workspace/skills
 ```
 
-That creates:
-
-```text
-~/.openclaw/workspace/skills/local-semantic-memory/
-```
-
-with the packaged skill files.
-
-### Option 2 — manual install
-
-Copy these files into a new skill directory named `local-semantic-memory`:
-
-- `skill/SKILL.md`
-- `skill/REFERENCE.md`
-- `skill/EXAMPLES.md`
-
-Scripts are optional but recommended.
-
-## Validate the packaged skill
+## Validate the package
 
 ```bash
 ./skill/scripts/validate-skill.sh
 ```
 
-## Usage
+## CLI usage
 
-Typical workflow:
+From the repo root or a workspace where the tool is installed:
 
-1. validate the memory entrypoint syntax
-2. run the narrowest indexing profile
-3. inspect stats
-4. run targeted retrieval checks
-5. expand scope only after narrower validation passes
+```bash
+node tools/memory-local.js index --full
+node tools/memory-local.js stats
+node tools/memory-local.js search "OpenClaw OAuth refresh_token_reused" --k 6 --json
+```
 
-See:
-- [`skill/SKILL.md`](./skill/SKILL.md)
-- [`skill/REFERENCE.md`](./skill/REFERENCE.md)
-- [`skill/EXAMPLES.md`](./skill/EXAMPLES.md)
+You can also point it at another workspace:
+
+```bash
+MEMORY_LOCAL_WORKSPACE=/path/to/workspace node tools/memory-local.js stats
+```
+
+## Environment variables
+
+- `MEMORY_LOCAL_WORKSPACE` — workspace root to index/search
+- `MEMORY_LOCAL_PROFILE` — `smoke`, `core`, `expanded`, or `full-history`
+- `MEMORY_LOCAL_EMBED_MODEL` — embedding model name
+- `MEMORY_LOCAL_PROFILES` — optional custom profiles JSON path
+- `OLLAMA_HOST` — Ollama base URL
+
+## Limitations
+
+This repo still assumes your memory data lives in a markdown-oriented workspace shape. It is portable across machines, but not magically universal across every knowledge-store architecture.
 
 ## Versioning
 
 Semantic Versioning:
 
-- `PATCH` — docs or packaging fixes
-- `MINOR` — new operating guidance, examples, install helpers
-- `MAJOR` — breaking assumptions about paths, tooling, or skill behavior
-
-## Limitations
-
-This repo does **not** bundle:
-
-- the underlying local memory engine
-- embedding model binaries
-- workspace-specific index data
-- environment-specific profile config
-
-It ships the skill layer, not the entire stack.
+- `PATCH` — packaging/docs fixes
+- `MINOR` — new workflow, installer, or retrieval behavior improvements
+- `MAJOR` — breaking path, config, or engine behavior changes
 
 ## Contributing
 

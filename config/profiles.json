@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "profiles": {
+    "smoke": {
+      "description": "Fast validation set: durable memory + lessons + recent daily logs",
+      "staticFiles": ["MEMORY.md", "SESSION-STATE.md", "memory/README.md", "memory/lessons.md", "memory/lessons/2026.md"],
+      "recentDailyDays": 3,
+      "includeDirs": [],
+      "maxChars": 320,
+      "maxLines": 10
+    },
+    "core": {
+      "description": "Default high-signal local recall set: durable memory + lessons + recent daily logs",
+      "staticFiles": ["MEMORY.md", "SESSION-STATE.md", "memory/README.md", "memory/lessons.md", "memory/lessons/2026.md"],
+      "recentDailyDays": 14,
+      "includeDirs": [],
+      "maxChars": 520,
+      "maxLines": 14
+    },
+    "expanded": {
+      "description": "Core plus project, decision, and people memory",
+      "staticFiles": ["MEMORY.md", "SESSION-STATE.md", "memory/README.md", "memory/lessons.md", "memory/lessons/2026.md"],
+      "recentDailyDays": 21,
+      "includeDirs": ["memory/projects", "memory/decisions", "memory/people"],
+      "maxChars": 520,
+      "maxLines": 14
+    },
+    "full-history": {
+      "description": "Expanded profile plus incidents and wider recent daily history",
+      "staticFiles": ["MEMORY.md", "SESSION-STATE.md", "memory/README.md", "memory/lessons.md", "memory/lessons/2026.md"],
+      "recentDailyDays": 45,
+      "includeDirs": ["memory/projects", "memory/decisions", "memory/people", "memory/incidents"],
+      "maxChars": 420,
+      "maxLines": 12
+    }
+  }
+}
