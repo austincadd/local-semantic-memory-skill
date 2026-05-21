@@ -1,0 +1,37 @@
+{
+  "id": "local-semantic-memory",
+  "name": "Local Semantic Memory",
+  "version": "0.4.0",
+  "description": "Self-contained local semantic memory plugin package with bundled skill files, local indexing runtime, and default profile config.",
+  "kind": "tooling",
+  "entry": "./index.js",
+  "skills": ["./skill"],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "workspaceRoot": {
+        "type": "string",
+        "description": "Workspace root used by the local semantic memory runtime when no explicit environment override is provided."
+      },
+      "ollamaHost": {
+        "type": "string",
+        "description": "Base URL for the Ollama instance used for embeddings."
+      },
+      "defaultEmbedModel": {
+        "type": "string",
+        "description": "Default embedding model name for the local memory runtime."
+      },
+      "profilesPath": {
+        "type": "string",
+        "description": "Optional path to a custom profiles JSON file."
+      }
+    }
+  },
+  "uiHints": {
+    "workspaceRoot": { "label": "Workspace root", "placeholder": "/path/to/workspace" },
+    "ollamaHost": { "label": "Ollama host", "placeholder": "http://127.0.0.1:11434" },
+    "defaultEmbedModel": { "label": "Default embed model", "placeholder": "all-minilm" },
+    "profilesPath": { "label": "Profiles path", "placeholder": "/path/to/profiles.json" }
+  }
+}

@@ -1,30 +1,38 @@
-# local-semantic-memory-skill
+# local-semantic-memory-plugin
 
-A portable **local semantic memory stack** for OpenClaw-style workspaces.
+A self-contained **local semantic memory plugin** for OpenClaw-style agent environments.
 
-This repo now packages both:
+This package is designed to ship as a real plugin, not just a repo with helper scripts. It bundles:
 
-1. the **skill layer** that teaches an agent how to operate local semantic recall
-2. the **runtime layer** needed to index and search markdown memory locally
+- plugin manifest + entrypoint
+- local semantic memory runtime
+- default profile configuration
+- bundled skill files
+- install/bootstrap helpers
 
-That makes it installable outside the original workspace instead of being tied to one machine’s hardcoded paths.
+## What this package provides
 
-## What’s included
+### Plugin layer
+- `openclaw.plugin.json` for discovery and config validation
+- `index.js` plugin entrypoint
+- plugin config surface under `plugins.entries.local-semantic-memory.config`
 
-- `skill/` — installable OpenClaw/AgentSkill-style files
-- `tools/memory-local.js` — local index/search engine entrypoint
-- `tools/lib/hybrid-retrieval.js` — BM25 + vector hybrid retrieval helper
-- `config/profiles.json` — default indexing profiles
-- install scripts for skill-only or full stack installation
+### Runtime layer
+- `tools/memory-local.js` for local indexing/search
+- `tools/lib/hybrid-retrieval.js` for BM25 + vector fusion
+- `config/profiles.json` for default profile behavior
 
-## Features
+### Skill layer
+- bundled `skill/` files so the plugin can ship operational guidance with the runtime
 
-- local markdown indexing with profile-based scope control
-- Ollama embedding integration
-- hybrid retrieval with BM25 + vector fusion
-- automatic chunk splitting retry for context-overflow embedding failures
-- reusable skill packaging for agent environments
-- workspace installer for skill + tool + config layout
+## Why this is cleaner now
+
+Instead of asking people to manually copy scripts and docs into a workspace, this package can now be:
+
+- packed as a plugin tarball
+- installed with plugin tooling
+- configured through plugin config
+- shipped as one self-contained unit
 
 ## Repository layout
 
@@ -35,6 +43,8 @@ local-semantic-memory-skill/
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── package.json
+├── openclaw.plugin.json
+├── index.js
 ├── .gitignore
 ├── config/
 │   └── profiles.json
@@ -47,59 +57,96 @@ local-semantic-memory-skill/
 │   ├── REFERENCE.md
 │   ├── EXAMPLES.md
 │   └── scripts/
+│       ├── bootstrap.sh
+│       ├── check-deps.sh
 │       ├── install-skill.sh
 │       ├── install-stack.sh
 │       └── validate-skill.sh
-├── examples/
-│   ├── install.md
-│   └── usage.md
-└── .github/
-    ├── ISSUE_TEMPLATE/
-    └── pull_request_template.md
+└── examples/
+    ├── install.md
+    ├── plugin-install.md
+    └── usage.md
 ```
 
 ## Requirements
 
 - Node.js 18+
-- a target workspace containing markdown memory files
+- a markdown-oriented workspace to index
 - a running Ollama instance for embeddings
 - an installed embedding model such as `all-minilm` or `nomic-embed-text`
+- `curl` for dependency checks
 
-## Install options
+## Recommended install path
 
-### Option 1 — install full stack into a workspace
+### Install as a plugin package
+
+Pack locally or publish it, then install it through plugin tooling:
+
+```bash
+openclaw plugins install /path/to/local-semantic-memory-plugin-0.4.0.tgz
+```
+
+Or once published to a registry:
+
+```bash
+openclaw plugins install local-semantic-memory-plugin
+```
+
+Then restart the gateway and configure:
+
+```text
+plugins.entries.local-semantic-memory.config
+```
+
+See [`examples/plugin-install.md`](./examples/plugin-install.md).
+
+## Alternate install paths
+
+### Bootstrap into a workspace
+
+```bash
+./skill/scripts/bootstrap.sh /path/to/workspace
+```
+
+### Install full stack into a workspace
 
 ```bash
 ./skill/scripts/install-stack.sh /path/to/workspace
 ```
 
-That installs:
-
-- `skills/local-semantic-memory/`
-- `tools/memory-local.js`
-- `tools/lib/hybrid-retrieval.js`
-- `.memory-local/profiles.json`
-
-### Option 2 — install only the skill layer
+### Install only the bundled skill files
 
 ```bash
 ./skill/scripts/install-skill.sh /path/to/workspace/skills
 ```
 
-## Validate the package
+## Validation
 
 ```bash
 ./skill/scripts/validate-skill.sh
+npm run pack-check
 ```
+
+## Plugin surfaces
+
+This package currently exposes:
+
+- plugin manifest: `openclaw.plugin.json`
+- plugin entrypoint: `index.js`
+- gateway method: `localSemanticMemory.status`
+- CLI command: `local-memory-status`
+- bundled skill files via the plugin manifest
+- standalone runtime CLI: `local-semantic-memory`
 
 ## Included helper scripts
 
 - `check-deps.sh` — verifies Node, curl, Ollama reachability, and embedding-model presence
-- `install-skill.sh` — installs only the skill layer
-- `install-stack.sh` — installs skill + runtime + config into a workspace
 - `bootstrap.sh` — dependency check + full-stack install in one command
+- `install-stack.sh` — installs skill + runtime + config into a workspace
+- `install-skill.sh` — installs only the bundled skill layer
+- `validate-skill.sh` — validates manifest, package files, runtime syntax, and config presence
 
-## CLI usage
+## Runtime usage
 
 From the repo root or a workspace where the tool is installed:
 
@@ -109,7 +156,7 @@ node tools/memory-local.js stats
 node tools/memory-local.js search "failed OAuth token refresh" --k 6 --json
 ```
 
-You can also point it at another workspace:
+Or point at another workspace:
 
 ```bash
 MEMORY_LOCAL_WORKSPACE=/path/to/workspace node tools/memory-local.js stats
@@ -125,23 +172,24 @@ MEMORY_LOCAL_WORKSPACE=/path/to/workspace node tools/memory-local.js stats
 
 ## Limitations
 
-This repo still assumes your memory data lives in a markdown-oriented workspace shape. It is portable across machines, but not magically universal across every knowledge-store architecture.
+This is now a self-contained plugin package, but it still assumes:
+
+- markdown-oriented memory files
+- an Ollama-based embedding runtime
+- a host environment compatible with the packaged runtime and plugin model
 
 ## Versioning
 
 Semantic Versioning:
 
 - `PATCH` — packaging/docs fixes
-- `MINOR` — new workflow, installer, or retrieval behavior improvements
-- `MAJOR` — breaking path, config, or engine behavior changes
+- `MINOR` — new plugin/runtime/install behavior that is backward compatible
+- `MAJOR` — breaking manifest, config, or runtime behavior changes
 
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## License
-
-MIT
-
 
 MIT

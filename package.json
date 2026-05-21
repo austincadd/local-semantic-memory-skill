@@ -1,18 +1,34 @@
 {
-  "name": "local-semantic-memory-skill",
-  "version": "0.2.0",
+  "name": "local-semantic-memory-plugin",
+  "version": "0.4.0",
   "private": false,
-  "description": "Portable local semantic memory engine + OpenClaw-style skill package for local indexing and recall workflows.",
+  "description": "Self-contained local semantic memory plugin package with bundled skill files, local indexing runtime, and default profile config.",
+  "main": "index.js",
   "bin": {
     "local-semantic-memory": "tools/memory-local.js"
   },
   "license": "MIT",
+  "openclaw": {
+    "extensions": ["./index.js"]
+  },
+  "files": [
+    "index.js",
+    "openclaw.plugin.json",
+    "config",
+    "tools",
+    "skill",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md"
+  ],
   "scripts": {
     "validate": "bash ./skill/scripts/validate-skill.sh",
     "doctor": "bash ./skill/scripts/check-deps.sh",
     "install:skill": "bash ./skill/scripts/install-skill.sh ./installed-skills",
     "install:stack": "bash ./skill/scripts/install-stack.sh ./example-workspace",
-    "bootstrap": "bash ./skill/scripts/bootstrap.sh ./example-workspace"
+    "bootstrap": "bash ./skill/scripts/bootstrap.sh ./example-workspace",
+    "pack-check": "npm pack --dry-run"
   },
   "engines": {
     "node": ">=18"

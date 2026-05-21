@@ -14,7 +14,9 @@ for f in \
   "$ROOT_DIR/tools/memory-local.js" \
   "$ROOT_DIR/tools/lib/hybrid-retrieval.js" \
   "$ROOT_DIR/config/profiles.json" \
-  "$ROOT_DIR/package.json"
+  "$ROOT_DIR/package.json" \
+  "$ROOT_DIR/openclaw.plugin.json" \
+  "$ROOT_DIR/index.js"
 do
   if [[ ! -f "$f" ]]; then
     echo "Missing required file: $f" >&2

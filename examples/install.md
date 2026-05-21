@@ -1,5 +1,7 @@
 # Install examples
 
+For plugin-style installation, also see [plugin-install.md](./plugin-install.md).
+
 ## One-command bootstrap
 
 ```bash
@@ -8,7 +10,7 @@ cd local-semantic-memory-skill
 ./skill/scripts/bootstrap.sh /path/to/workspace
 ```
 
-## Full stack install into an OpenClaw-style workspace
+## Full stack install into a workspace
 
 ```bash
 ./skill/scripts/install-stack.sh /path/to/workspace
