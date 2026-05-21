@@ -83,7 +83,7 @@ That installs:
 ### Option 2 — install only the skill layer
 
 ```bash
-./skill/scripts/install-skill.sh ~/.openclaw/workspace/skills
+./skill/scripts/install-skill.sh /path/to/workspace/skills
 ```
 
 ## Validate the package

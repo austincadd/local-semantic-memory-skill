@@ -17,6 +17,6 @@ cd local-semantic-memory-skill
 ## Validate after install
 
 ```bash
-cd ~/.openclaw/workspace
+cd /path/to/workspace
 node tools/memory-local.js stats
 ```

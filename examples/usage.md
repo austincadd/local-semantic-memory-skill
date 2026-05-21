@@ -23,4 +23,4 @@ MEMORY_LOCAL_PROFILE=core \
 MEMORY_LOCAL_EMBED_MODEL=all-minilm \
 node tools/memory-local.js search "failed token refresh and login errors" --k 6 --json
 ```
-```
+
