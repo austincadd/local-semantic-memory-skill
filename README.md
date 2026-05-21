@@ -7,7 +7,7 @@ This repo now packages both:
 1. the **skill layer** that teaches an agent how to operate local semantic recall
 2. the **runtime layer** needed to index and search markdown memory locally
 
-That makes it installable by someone outside the original workspace instead of being tied to Austin’s machine paths.
+That makes it installable outside the original workspace instead of being tied to one machine’s hardcoded paths.
 
 ## What’s included
 

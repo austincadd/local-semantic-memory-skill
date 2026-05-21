@@ -3,7 +3,7 @@
 ## Index a workspace
 
 ```bash
-MEMORY_LOCAL_WORKSPACE=~/.openclaw/workspace \
+MEMORY_LOCAL_WORKSPACE=/path/to/workspace \
 MEMORY_LOCAL_PROFILE=core \
 MEMORY_LOCAL_EMBED_MODEL=all-minilm \
 node tools/memory-local.js index --full
