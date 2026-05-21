@@ -11,7 +11,7 @@ cd local-semantic-memory-skill
 ## Skill-only install
 
 ```bash
-./skill/scripts/install-skill.sh ~/.openclaw/workspace/skills
+./skill/scripts/install-skill.sh /path/to/workspace/skills
 ```
 
 ## Validate after install

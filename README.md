@@ -70,7 +70,7 @@ local-semantic-memory-skill/
 ### Option 1 — install full stack into a workspace
 
 ```bash
-./skill/scripts/install-stack.sh ~/.openclaw/workspace
+./skill/scripts/install-stack.sh /path/to/workspace
 ```
 
 That installs:

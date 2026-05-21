@@ -9,8 +9,8 @@
   "license": "MIT",
   "scripts": {
     "validate": "bash ./skill/scripts/validate-skill.sh",
-    "install:skill": "bash ./skill/scripts/install-skill.sh ~/.openclaw/workspace/skills",
-    "install:stack": "bash ./skill/scripts/install-stack.sh ~/.openclaw/workspace"
+    "install:skill": "bash ./skill/scripts/install-skill.sh /path/to/workspace/skills",
+    "install:stack": "bash ./skill/scripts/install-stack.sh /path/to/workspace"
   },
   "engines": {
     "node": ">=18"
