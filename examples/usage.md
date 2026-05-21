@@ -12,7 +12,7 @@ node tools/memory-local.js index --full
 ## Inspect stats
 
 ```bash
-MEMORY_LOCAL_WORKSPACE=~/.openclaw/workspace node tools/memory-local.js stats
+MEMORY_LOCAL_WORKSPACE=/path/to/workspace node tools/memory-local.js stats
 ```
 
 ## Run a targeted retrieval query

@@ -5,7 +5,7 @@
 ```bash
 git clone https://github.com/<your-user>/local-semantic-memory-skill.git
 cd local-semantic-memory-skill
-./skill/scripts/install-stack.sh ~/.openclaw/workspace
+./skill/scripts/install-stack.sh /path/to/workspace
 ```
 
 ## Skill-only install

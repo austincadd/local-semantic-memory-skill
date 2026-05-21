@@ -99,7 +99,7 @@ From the repo root or a workspace where the tool is installed:
 ```bash
 node tools/memory-local.js index --full
 node tools/memory-local.js stats
-node tools/memory-local.js search "OpenClaw OAuth refresh_token_reused" --k 6 --json
+node tools/memory-local.js search "failed OAuth token refresh" --k 6 --json
 ```
 
 You can also point it at another workspace:
@@ -133,5 +133,8 @@ Semantic Versioning:
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## License
+
+MIT
+
 
 MIT
