@@ -1,5 +1,12 @@
 # Usage examples
 
+Before indexing for real, it is worth running:
+
+```bash
+./skill/scripts/check-deps.sh
+```
+
+
 ## Index a workspace
 
 ```bash

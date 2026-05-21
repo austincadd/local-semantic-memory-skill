@@ -9,6 +9,8 @@ for f in \
   "$ROOT_DIR/skill/EXAMPLES.md" \
   "$ROOT_DIR/skill/scripts/install-skill.sh" \
   "$ROOT_DIR/skill/scripts/install-stack.sh" \
+  "$ROOT_DIR/skill/scripts/bootstrap.sh" \
+  "$ROOT_DIR/skill/scripts/check-deps.sh" \
   "$ROOT_DIR/tools/memory-local.js" \
   "$ROOT_DIR/tools/lib/hybrid-retrieval.js" \
   "$ROOT_DIR/config/profiles.json" \

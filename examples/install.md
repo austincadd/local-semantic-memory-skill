@@ -1,10 +1,16 @@
 # Install examples
 
-## Full stack install into an OpenClaw-style workspace
+## One-command bootstrap
 
 ```bash
 git clone https://github.com/<your-user>/local-semantic-memory-skill.git
 cd local-semantic-memory-skill
+./skill/scripts/bootstrap.sh /path/to/workspace
+```
+
+## Full stack install into an OpenClaw-style workspace
+
+```bash
 ./skill/scripts/install-stack.sh /path/to/workspace
 ```
 

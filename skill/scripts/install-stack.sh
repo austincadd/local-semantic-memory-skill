@@ -12,6 +12,11 @@ SKILL_TARGET="$WORKSPACE_ROOT/skills/local-semantic-memory"
 TOOLS_TARGET="$WORKSPACE_ROOT/tools"
 CONFIG_TARGET="$WORKSPACE_ROOT/.memory-local"
 
+if [[ ! -d "$WORKSPACE_ROOT" ]]; then
+  echo "Workspace root does not exist: $WORKSPACE_ROOT" >&2
+  exit 1
+fi
+
 mkdir -p "$SKILL_TARGET" "$TOOLS_TARGET/lib" "$CONFIG_TARGET"
 cp "$ROOT_DIR/skill/SKILL.md" "$SKILL_TARGET/SKILL.md"
 cp "$ROOT_DIR/skill/REFERENCE.md" "$SKILL_TARGET/REFERENCE.md"

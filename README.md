@@ -92,6 +92,13 @@ That installs:
 ./skill/scripts/validate-skill.sh
 ```
 
+## Included helper scripts
+
+- `check-deps.sh` — verifies Node, curl, Ollama reachability, and embedding-model presence
+- `install-skill.sh` — installs only the skill layer
+- `install-stack.sh` — installs skill + runtime + config into a workspace
+- `bootstrap.sh` — dependency check + full-stack install in one command
+
 ## CLI usage
 
 From the repo root or a workspace where the tool is installed:

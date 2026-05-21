@@ -9,8 +9,10 @@
   "license": "MIT",
   "scripts": {
     "validate": "bash ./skill/scripts/validate-skill.sh",
-    "install:skill": "bash ./skill/scripts/install-skill.sh /path/to/workspace/skills",
-    "install:stack": "bash ./skill/scripts/install-stack.sh /path/to/workspace"
+    "doctor": "bash ./skill/scripts/check-deps.sh",
+    "install:skill": "bash ./skill/scripts/install-skill.sh ./installed-skills",
+    "install:stack": "bash ./skill/scripts/install-stack.sh ./example-workspace",
+    "bootstrap": "bash ./skill/scripts/bootstrap.sh ./example-workspace"
   },
   "engines": {
     "node": ">=18"
